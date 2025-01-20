@@ -1,0 +1,51 @@
+
+services:
+  orientdb-node1:
+    image: orientdb:latest
+    container_name: orientdb-node1
+    environment:
+      - ORIENTDB_ROOT_PASSWORD=rootpwd
+      - ORIENTDB_NODE_NAME=orientdb-node1
+      - ORIENTDB_HOME=/orientdb
+    volumes:
+      - ./config/orientdb-server-config-node1.xml:/orientdb/config/orientdb-server-config.xml
+      - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
+      - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
+      - ./lib/slf4j-api.jar:/orientdb/lib/slf4j-api.jar
+      - ./lib/slf4j-jdk14.jar:/orientdb/lib/slf4j-jdk14.jar
+    ports:
+      - "2424:2424"
+      - "2480:2480"
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    networks:
+      - orientdb-net
+
+  orientdb-node2:
+    image: orientdb:latest
+    container_name: orientdb-node2
+    environment:
+      - ORIENTDB_ROOT_PASSWORD=rootpwd
+      - ORIENTDB_NODE_NAME=orientdb-node2
+      - ORIENTDB_HOME=/orientdb
+    volumes:
+      - ./config/orientdb-server-config-node2.xml:/orientdb/config/orientdb-server-config.xml
+      - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
+      - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
+      - ./lib/slf4j-api.jar:/orientdb/lib/slf4j-api.jar
+      - ./lib/slf4j-jdk14.jar:/orientdb/lib/slf4j-jdk14.jar
+    ports:
+      - "2425:2424"
+      - "2481:2480"
+    deploy:
+      resources:
+        limits:
+          memory: 2g
+    networks:
+      - orientdb-net
+
+networks:
+  orientdb-net:
+    driver: bridge

@@ -1,0 +1,145 @@
+version: '3'
+
+services:
+  agent1:
+    container_name: agent1
+    image: arangodb:latest
+    environment:
+      - ARANGO_NO_AUTH=1
+    command:
+      - arangod
+      - --server.endpoint=tcp://0.0.0.0:5101
+      - --agency.my-address=tcp://agent1:5101
+      - --agency.activate=true
+      - --agency.size=3
+      - --agency.endpoint=tcp://agent1:5101
+      - --agency.endpoint=tcp://agent2:5102
+      - --agency.endpoint=tcp://agent3:5103
+      - --agency.supervision=true
+      - --database.directory=/var/lib/arangodb3/agent1
+    ports:
+      - "5101:5101"
+    networks:
+      - arangodb
+
+  agent2:
+    container_name: agent2
+    image: arangodb:latest
+    environment:
+      - ARANGO_NO_AUTH=1
+    command:
+      - arangod
+      - --server.endpoint=tcp://0.0.0.0:5102
+      - --agency.my-address=tcp://agent2:5102
+      - --agency.activate=true
+      - --agency.size=3
+      - --agency.endpoint=tcp://agent1:5101
+      - --agency.endpoint=tcp://agent2:5102
+      - --agency.endpoint=tcp://agent3:5103
+      - --agency.supervision=true
+      - --database.directory=/var/lib/arangodb3/agent2
+    ports:
+      - "5102:5102"
+    networks:
+      - arangodb
+
+  agent3:
+    container_name: agent3
+    image: arangodb:latest
+    environment:
+      - ARANGO_NO_AUTH=1
+    command:
+      - arangod
+      - --server.endpoint=tcp://0.0.0.0:5103
+      - --agency.my-address=tcp://agent3:5103
+      - --agency.activate=true
+      - --agency.size=3
+      - --agency.endpoint=tcp://agent1:5101
+      - --agency.endpoint=tcp://agent2:5102
+      - --agency.endpoint=tcp://agent3:5103
+      - --agency.supervision=true
+      - --database.directory=/var/lib/arangodb3/agent3
+    ports:
+      - "5103:5103"
+    networks:
+      - arangodb
+
+  dbserver1:
+    container_name: dbserver1
+    image: arangodb:latest
+    environment:
+      - ARANGO_NO_AUTH=1
+    command:
+      - arangod
+      - --server.endpoint=tcp://0.0.0.0:6101
+      - --cluster.my-address=tcp://dbserver1:6101
+      - --cluster.my-role=PRIMARY
+      - --cluster.agency-endpoint=tcp://agent1:5101
+      - --cluster.agency-endpoint=tcp://agent2:5102
+      - --cluster.agency-endpoint=tcp://agent3:5103
+      - --database.directory=/var/lib/arangodb3/dbserver1
+    ports:
+      - "6101:6101"
+    networks:
+      - arangodb
+
+  dbserver2:
+    container_name: dbserver2
+    image: arangodb:latest
+    environment:
+      - ARANGO_NO_AUTH=1
+    command:
+      - arangod
+      - --server.endpoint=tcp://0.0.0.0:6102
+      - --cluster.my-address=tcp://dbserver2:6102
+      - --cluster.my-role=PRIMARY
+      - --cluster.agency-endpoint=tcp://agent1:5101
+      - --cluster.agency-endpoint=tcp://agent2:5102
+      - --cluster.agency-endpoint=tcp://agent3:5103
+      - --database.directory=/var/lib/arangodb3/dbserver2
+    ports:
+      - "6102:6102"
+    networks:
+      - arangodb
+
+  coordinator1:
+    container_name: coordinator1
+    image: arangodb:latest
+    environment:
+      - ARANGO_NO_AUTH=1
+    command:
+      - arangod
+      - --server.endpoint=tcp://0.0.0.0:7101
+      - --cluster.my-address=tcp://coordinator1:7101
+      - --cluster.my-role=COORDINATOR
+      - --cluster.agency-endpoint=tcp://agent1:5101
+      - --cluster.agency-endpoint=tcp://agent2:5102
+      - --cluster.agency-endpoint=tcp://agent3:5103
+      - --database.directory=/var/lib/arangodb3/coordinator1
+    ports:
+      - "7101:7101"
+    networks:
+      - arangodb
+
+  coordinator2:
+    container_name: coordinator2
+    image: arangodb:latest
+    environment:
+      - ARANGO_NO_AUTH=1
+    command:
+      - arangod
+      - --server.endpoint=tcp://0.0.0.0:7102
+      - --cluster.my-address=tcp://coordinator2:7102
+      - --cluster.my-role=COORDINATOR
+      - --cluster.agency-endpoint=tcp://agent1:5101
+      - --cluster.agency-endpoint=tcp://agent2:5102
+      - --cluster.agency-endpoint=tcp://agent3:5103
+      - --database.directory=/var/lib/arangodb3/coordinator2
+    ports:
+      - "7102:7102"
+    networks:
+      - arangodb
+
+networks:
+  arangodb:
+    driver: bridge

@@ -1,0 +1,23 @@
+{
+  "autoDeploy": true,
+  "hotAlignment": true,
+  "executionMode": "synchronous",
+  "readQuorum": 1,
+  "writeQuorum": "majority",
+  "failureAvailableNodesLessQuorum": false,
+  "readYourWrites": true,
+  "servers": {
+    "*": "master"
+  },
+  "clusters": {
+    "internal": {
+      "servers": ["*"]
+    },
+    "index": {
+      "servers": ["*"]
+    },
+    "*": {
+      "servers": ["orientdb-node1", "orientdb-node2"]
+    }
+  }
+}
