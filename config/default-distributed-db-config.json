@@ -17,7 +17,7 @@
       "servers": ["*"]
     },
     "*": {
-      "servers": ["orientdb-node1", "orientdb-node2"]
+      "servers": ["orientdb-node1", "orientdb-node2", "orientdb-node3", "orientdb-node4"]
     }
   }
 }

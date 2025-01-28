@@ -1,10 +1,11 @@
 services:
   cratedb01:
+    container_name: cratedb-node1
     image: crate:latest
     ports:
       - "4201:4200"
     volumes:
-      - /tmp/crate/01:/data
+      - ./data/cratedb/01:/data  # Montar el directorio data
     command: ["crate",
               "-Ccluster.name=crate-docker-cluster",
               "-Cnode.name=cratedb01",
@@ -15,18 +16,25 @@ services:
               "-Cgateway.expected_data_nodes=3",
               "-Cgateway.recover_after_data_nodes=2"]
     deploy:
+      resources:
+        limits:
+          memory: 1g
+          cpus: "0.5"
       replicas: 1
       restart_policy:
         condition: on-failure
     environment:
       - CRATE_HEAP_SIZE=2g
+    networks:
+      - khab-network
 
   cratedb02:
+    container_name: cratedb-node2
     image: crate:latest
     ports:
       - "4202:4200"
     volumes:
-      - /tmp/crate/02:/data
+      - ./data/cratedb/02:/data  # Montar el directorio data
     command: ["crate",
               "-Ccluster.name=crate-docker-cluster",
               "-Cnode.name=cratedb02",
@@ -37,18 +45,25 @@ services:
               "-Cgateway.expected_data_nodes=3",
               "-Cgateway.recover_after_data_nodes=2"]
     deploy:
+      resources:
+        limits:
+          memory: 1g
+          cpus: "0.5"
       replicas: 1
       restart_policy:
         condition: on-failure
     environment:
       - CRATE_HEAP_SIZE=2g
+    networks:
+      - khab-network
 
   cratedb03:
+    container_name: cratedb-node3
     image: crate:latest
     ports:
       - "4203:4200"
     volumes:
-      - /tmp/crate/03:/data
+      - ./data/cratedb/03:/data  # Montar el directorio data
     command: ["crate",
               "-Ccluster.name=crate-docker-cluster",
               "-Cnode.name=cratedb03",
@@ -59,8 +74,17 @@ services:
               "-Cgateway.expected_data_nodes=3",
               "-Cgateway.recover_after_data_nodes=2"]
     deploy:
+      resources:
+        limits:
+          memory: 1g
+          cpus: "0.5"
       replicas: 1
       restart_policy:
         condition: on-failure
     environment:
       - CRATE_HEAP_SIZE=2g
+    networks:
+      - khab-network
+networks:
+  khab-network:
+    driver: bridge
