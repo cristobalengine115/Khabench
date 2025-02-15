@@ -1,1 +1,5 @@
 data
+scripts/arangodb/__pycache__
+scripts/arangodb/venv/
+scripts/arangodb/test.py
+test.py

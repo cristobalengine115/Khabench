@@ -24,7 +24,7 @@ services:
           memory: 512m
           cpus: "0.25"
     volumes:
-      - ./data:/data
+      - /home/khabench/Desktop/test/data/Global:/data
     networks:
       - khab-network
 
@@ -52,7 +52,7 @@ services:
           memory: 512m
           cpus: "0.25"
     volumes:
-      - ./data:/data
+      - /home/khabench/Desktop/test/data/Global:/data
     networks:
       - khab-network
 
@@ -80,7 +80,7 @@ services:
           memory: 512m
           cpus: "0.25"
     volumes:
-      - ./data:/data
+      - /home/khabench/Desktop/test/data/Global:/data
     networks:
       - khab-network
 
@@ -106,7 +106,7 @@ services:
           memory: 1g
           cpus: "0.5"
     volumes:
-      - ./data:/data
+      - /home/khabench/Desktop/test/data/Global:/data
     networks:
       - khab-network
 
@@ -132,7 +132,7 @@ services:
           memory: 1g
           cpus: "0.5"
     volumes:
-      - ./data:/data
+      - /home/khabench/Desktop/test/data/Global:/data
     networks:
       - khab-network
 
@@ -158,35 +158,35 @@ services:
           memory: 1g
           cpus: "0.5"
     volumes:
-      - ./data:/data
+      - /home/khabench/Desktop/test/data/Global:/data
     networks:
       - khab-network
 
-  # dbserver4:
-  #   container_name: arangodb-dbserver4
-  #   image: arangodb:latest
-  #   environment:
-  #     - ARANGO_NO_AUTH=1
-  #   command:
-  #     - arangod
-  #     - --server.endpoint=tcp://0.0.0.0:6104
-  #     - --cluster.my-address=tcp://dbserver4:6104
-  #     - --cluster.my-role=PRIMARY
-  #     - --cluster.agency-endpoint=tcp://agent1:5101
-  #     - --cluster.agency-endpoint=tcp://agent2:5102
-  #     - --cluster.agency-endpoint=tcp://agent3:5103
-  #     - --database.directory=/var/lib/arangodb3/dbserver4
-  #   ports:
-  #     - "6104:6104"
-  #   deploy:
-  #    resources:
-  #     limits:
-  #       memory: 1g
-  #       cpus: "0.5"
-  #   volumes:
-  #     - ./data:/data
-  #   networks:
-  #     - khab-network
+  dbserver4:
+    container_name: arangodb-dbserver4
+    image: arangodb:latest
+    environment:
+      - ARANGO_NO_AUTH=1
+    command:
+      - arangod
+      - --server.endpoint=tcp://0.0.0.0:6104
+      - --cluster.my-address=tcp://dbserver4:6104
+      - --cluster.my-role=PRIMARY
+      - --cluster.agency-endpoint=tcp://agent1:5101
+      - --cluster.agency-endpoint=tcp://agent2:5102
+      - --cluster.agency-endpoint=tcp://agent3:5103
+      - --database.directory=/var/lib/arangodb3/dbserver4
+    ports:
+      - "6104:6104"
+    deploy:
+     resources:
+      limits:
+        memory: 1g
+        cpus: "0.5"
+    volumes:
+      - /home/khabench/Desktop/test/data/Global:/data
+    networks:
+      - khab-network
 
   coordinator1:
     container_name: arangodb-coordinator1
@@ -210,7 +210,7 @@ services:
           memory: 2g
           cpus: "0.5"
     volumes:
-      - ./data:/data
+      - /home/khabench/Desktop/test/data/Global:/data
     networks:
       - khab-network
 
@@ -236,7 +236,7 @@ services:
           memory: 2g
           cpus: "0.5"
     volumes:
-      - ./data:/data
+      - /home/khabench/Desktop/test/data/Global:/data
     networks:
       - khab-network
 networks:

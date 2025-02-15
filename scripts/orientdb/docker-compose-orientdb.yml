@@ -10,7 +10,7 @@ services:
       - ./config/orientdb-server-config-node1.xml:/orientdb/config/orientdb-server-config.xml
       - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
       - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
-      - ./data:/data  # Montar el directorio data
+      - /home/khabench/Desktop/test/data:/data  # Montar el directorio data
     ports:
       - "2424:2424"
       - "2480:2480"
@@ -33,7 +33,7 @@ services:
       - ./config/orientdb-server-config-node2.xml:/orientdb/config/orientdb-server-config.xml
       - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
       - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
-      - ./data:/data  # Montar el directorio data
+      - /home/khabench/Desktop/test/data:/data  # Montar el directorio data
     ports:
       - "2425:2424"
       - "2481:2480"
@@ -56,7 +56,7 @@ services:
       - ./config/orientdb-server-config-node3.xml:/orientdb/config/orientdb-server-config.xml
       - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
       - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
-      - ./data:/data  # Montar el directorio data
+      - /home/khabench/Desktop/test/data:/data  # Montar el directorio data
     ports:
       - "2426:2424"
       - "2482:2480"
@@ -79,7 +79,7 @@ services:
       - ./config/orientdb-server-config-node4.xml:/orientdb/config/orientdb-server-config.xml
       - ./config/default-distributed-db-config.json:/orientdb/config/default-distributed-db-config.json
       - ./config/hazelcast.xml:/orientdb/config/hazelcast.xml
-      - ./data:/data  # Montar el directorio data
+      - /home/khabench/Desktop/test/data:/data  # Montar el directorio data
     ports:
       - "2427:2424"
       - "2483:2480"
